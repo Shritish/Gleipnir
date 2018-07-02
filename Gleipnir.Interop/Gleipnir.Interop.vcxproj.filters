@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\StringExtension">
+      <UniqueIdentifier>{88459729-da4d-4196-a18b-1c92a94616de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StringExtension\KeepEmptyEntries">
+      <UniqueIdentifier>{b6d9d880-e074-45f3-a92c-0ac542083363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StringExtension\OmitEmptyEntries">
+      <UniqueIdentifier>{b558a23e-5a0b-4ff9-91cb-551c58b35b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{bf7a6479-37c4-45fb-acd4-50ff8d6a3f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SplitExtension">
+      <UniqueIdentifier>{83eb1a8f-6fa6-4320-a942-3825c6af4f81}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header Files\Gleipnir.Interop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\SplitExtension\SplitExtension.h">
+      <Filter>Header Files\SplitExtension</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="StringExtension\SplitExtension.cpp">
+      <Filter>Source Files\StringExtension</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeAllFollowingExcludeTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeAllFollowingIncludeSingleTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeSingleFollowingExcludeTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeSingleFollowingGreedyIncludeSingleTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeSingleFollowingIncludeAllTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\IncludeSingleFollowingIncludeSingleTrailingGreedy_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\ExcludeFollowingExcludeTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\ExcludeFollowingIncludeAllTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\KeepEmpty\ExcludeFollowingIncludeSingleTrailing_K.cpp">
+      <Filter>Source Files\StringExtension\KeepEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeAllFollowingIncludeSingleTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeSingleFollowingExcludeTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeSingleFollowingGreedyIncludeSingleTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeSingleFollowingIncludeAllTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeSingleFollowingIncludeSingleTrailingGreedy_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\ExcludeFollowingExcludeTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\ExcludeFollowingIncludeAllTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\ExcludeFollowingIncludeSingleTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\OmitEmpty\IncludeAllFollowingExcludeTrailing_O.cpp">
+      <Filter>Source Files\StringExtension\OmitEmptyEntries</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\stdafx.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="StringExtension\StringExtension.cpp">
+      <Filter>Source Files\StringExtension</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
