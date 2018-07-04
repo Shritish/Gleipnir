@@ -9,7 +9,7 @@ However, there are some requirements to get it to compile:
 - **REQUIRED**:
     * Visual C++ ATL for your respective processor. (atlstr.h)
     * Visual C++ MFC for your respective processor. (_malloca)
-    * C++/CLI support.
+    * C++/CLI support.  
       *Note: All of these can be found in Individual Components in Get Tools And Features.*
 
 - **NOT REQUIRED**:
