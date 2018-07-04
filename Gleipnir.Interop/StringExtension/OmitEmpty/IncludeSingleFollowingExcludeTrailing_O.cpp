@@ -48,6 +48,8 @@ SEEK_DELIMITER_DECLARATION()
 	split_extension_int entries = 0;
 	split_extension_int length;
 
+	bool following_delimiter = false;
+
 End:
 	if (calculation != calculation_end)
 	{
@@ -55,20 +57,13 @@ End:
 			if (*delimiter == *calculation)
 			{
 				++calculation;
+				following_delimiter = true;
 				goto End;
 			}
 
-		if (entries)
-		{
-			length = 1;
-			word_begin = calculation;
-			--word_begin;
-		}
-		else
-		{
-			length = 0;
-			word_begin = calculation;
-		}
+
+		length = following_delimiter;
+		word_begin = calculation - (split_extension_int) following_delimiter;
 
 		while (++calculation != calculation_end)
 		{
@@ -80,6 +75,7 @@ End:
 					dictionary[entries]._wordBegin = word_begin;
 					dictionary[entries]._length = length;
 					++entries;
+					following_delimiter = true;
 					goto End;
 				}
 		}

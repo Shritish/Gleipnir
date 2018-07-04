@@ -33,50 +33,50 @@ namespace Gleipnir.Interop.Tests
 		};
 
 		// Every option is represented here in a singular function with a single paramater for delegate invocation for testing.
-		// There are 36 various options in total.
+		// There are 36 various SplitOption in total.
 		//Keep & No Track
-		public static string[] ExcludeFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.Exclude, true, delimiters);
-		public static string[] ExcludeFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.IncludeSingle, true, delimiters);
-		public static string[] ExcludeFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.IncludeAll, true, delimiters);
-		public static string[] IncludeSingleFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.Exclude, true, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeAll, true, delimiters);
-		public static string[] IncludeAllFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeAll, Options.Exclude, true, delimiters);
-		public static string[] IncludeAllFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeAll, Options.IncludeSingle, true, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeSingle, true, StringExtGreed.GreedyFollowing, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeSingle, true, StringExtGreed.GreedyTrailing, delimiters);
+		public static string[] ExcludeFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.Exclude, true, delimiters);
+		public static string[] ExcludeFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.IncludeSingle, true, delimiters);
+		public static string[] ExcludeFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.IncludeAll, true, delimiters);
+		public static string[] IncludeSingleFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.Exclude, true, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeAll, true, delimiters);
+		public static string[] IncludeAllFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeAll, SplitOption.Exclude, true, delimiters);
+		public static string[] IncludeAllFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeAll, SplitOption.IncludeSingle, true, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, true, SplitGreed.Following, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, true, SplitGreed.Trailing, delimiters);
 
 		//Omit & No Track
-		public static string[] ExcludeFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.Exclude, false, delimiters);
-		public static string[] ExcludeFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.IncludeSingle, false, delimiters);
-		public static string[] ExcludeFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.Exclude, Options.IncludeAll, false, delimiters);
-		public static string[] IncludeSingleFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.Exclude, false, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeAll, false, delimiters);
-		public static string[] IncludeAllFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeAll, Options.Exclude, false, delimiters);
-		public static string[] IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeAll, Options.IncludeSingle, false, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyFollowing, delimiters);
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtension(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyTrailing, delimiters);
+		public static string[] ExcludeFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.Exclude, false, delimiters);
+		public static string[] ExcludeFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.IncludeSingle, false, delimiters);
+		public static string[] ExcludeFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.Exclude, SplitOption.IncludeAll, false, delimiters);
+		public static string[] IncludeSingleFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.Exclude, false, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeAll, false, delimiters);
+		public static string[] IncludeAllFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeAll, SplitOption.Exclude, false, delimiters);
+		public static string[] IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeAll, SplitOption.IncludeSingle, false, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Following, delimiters);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Trailing, delimiters);
 
 		// Keep & Track
-		public static string[][] Track_ExcludeFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.Exclude, true, delimiters);
-		public static string[][] Track_ExcludeFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.IncludeSingle, true, delimiters);
-		public static string[][] Track_ExcludeFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.IncludeAll, true, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.Exclude, true, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeAll, true, delimiters);
-		public static string[][] Track_IncludeAllFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeAll, Options.Exclude, true, delimiters);
-		public static string[][] Track_IncludeAllFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeAll, Options.IncludeSingle, true, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeSingle, true, StringExtGreed.GreedyFollowing, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeSingle, true, StringExtGreed.GreedyTrailing, delimiters);
+		public static string[][] Track_ExcludeFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.Exclude, true, delimiters);
+		public static string[][] Track_ExcludeFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.IncludeSingle, true, delimiters);
+		public static string[][] Track_ExcludeFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.IncludeAll, true, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.Exclude, true, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeAllTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeAll, true, delimiters);
+		public static string[][] Track_IncludeAllFollowing_ExcludeTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeAll, SplitOption.Exclude, true, delimiters);
+		public static string[][] Track_IncludeAllFollowing_IncludeSingleTrailing_KeepEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeAll, SplitOption.IncludeSingle, true, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeSingle, true, SplitGreed.Following, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_KeepEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeSingle, true, SplitGreed.Trailing, delimiters);
 
 		// Omit & No Track
-		public static string[][] Track_ExcludeFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.Exclude, false, delimiters);
-		public static string[][] Track_ExcludeFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.IncludeSingle, false, delimiters);
-		public static string[][] Track_ExcludeFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.Exclude, Options.IncludeAll, false, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.Exclude, false, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeAll, false, delimiters);
-		public static string[][] Track_IncludeAllFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeAll, Options.Exclude, false, delimiters);
-		public static string[][] Track_IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeAll, Options.IncludeSingle, false, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyFollowing, delimiters);
-		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtensionTrack(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyTrailing, delimiters);
+		public static string[][] Track_ExcludeFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.Exclude, false, delimiters);
+		public static string[][] Track_ExcludeFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.IncludeSingle, false, delimiters);
+		public static string[][] Track_ExcludeFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.Exclude, SplitOption.IncludeAll, false, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.Exclude, false, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeAll, false, delimiters);
+		public static string[][] Track_IncludeAllFollowing_ExcludeTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeAll, SplitOption.Exclude, false, delimiters);
+		public static string[][] Track_IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeAll, SplitOption.IncludeSingle, false, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Following, delimiters);
+		public static string[][] Track_IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing(string input, params char[] delimiters) => input.SplitExtensionTrack(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Trailing, delimiters);
 
 
 		internal delegate string[] invoke_method(string input, params char[] delimiters);

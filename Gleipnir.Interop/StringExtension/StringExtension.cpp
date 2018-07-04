@@ -1,6 +1,7 @@
 using namespace System;
 using namespace System::Runtime::CompilerServices;
 
+#if false
 namespace System::Runtime::CompilerServices
 {
 	/// <summary>
@@ -9,6 +10,7 @@ namespace System::Runtime::CompilerServices
 	[AttributeUsage(AttributeTargets::Method | AttributeTargets::Class | AttributeTargets::Assembly)]
 	ref struct ExtensionAttribute : public Attribute { };
 }
+#endif
 
 namespace Gleipnir
 {

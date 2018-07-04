@@ -5,7 +5,7 @@ namespace Gleipnir.Interop.Benchmark.Benchmarks
 {
 	public class SplitExtension_Omit
 	{
-		private static string[] _testSplitExtension(Options following_option, Options trailing_option, bool keep_empty_entries, StringExtGreed greed = StringExtGreed.GreedyTrailing)
+		private static string[] _testSplitExtension(SplitOption following_option, SplitOption trailing_option, bool keep_empty_entries, SplitGreed greed = SplitGreed.Trailing)
 		{
 			string[] dont_optimize_me = null;
 
@@ -27,30 +27,30 @@ namespace Gleipnir.Interop.Benchmark.Benchmarks
 		}
 
 		[Benchmark]
-		public static string[] Exclude_Exclude_OmitEmptyEntries() => _testSplitExtension(Options.Exclude, Options.Exclude, false);
+		public static string[] Exclude_Exclude_OmitEmptyEntries() => _testSplitExtension(SplitOption.Exclude, SplitOption.Exclude, false);
 
 		[Benchmark]
-		public static string[] Exclude_IncludeSingleTrailing_OmitEmptyEntries() => _testSplitExtension(Options.Exclude, Options.IncludeSingle, false);
+		public static string[] Exclude_IncludeSingleTrailing_OmitEmptyEntries() => _testSplitExtension(SplitOption.Exclude, SplitOption.IncludeSingle, false);
 
 		[Benchmark]
-		public static string[] Exclude_IncludeAllTrailing_OmitEmptyEntries() => _testSplitExtension(Options.Exclude, Options.IncludeAll, false);
+		public static string[] Exclude_IncludeAllTrailing_OmitEmptyEntries() => _testSplitExtension(SplitOption.Exclude, SplitOption.IncludeAll, false);
 
 		[Benchmark]
-		public static string[] IncludeSingleFollowing_Exclude_OmitEmptyEntries() => _testSplitExtension(Options.IncludeSingle, Options.Exclude, false);
+		public static string[] IncludeSingleFollowing_Exclude_OmitEmptyEntries() => _testSplitExtension(SplitOption.IncludeSingle, SplitOption.Exclude, false);
 
 		[Benchmark]
-		public static string[] IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries() => _testSplitExtension(Options.IncludeSingle, Options.IncludeAll, false);
+		public static string[] IncludeSingleFollowing_IncludeAllTrailing_OmitEmptyEntries() => _testSplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeAll, false);
 
 		[Benchmark]
-		public static string[] IncludeAllFollowing_Exclude_OmitEmptyEntries() => _testSplitExtension(Options.IncludeAll, Options.Exclude, false);
+		public static string[] IncludeAllFollowing_Exclude_OmitEmptyEntries() => _testSplitExtension(SplitOption.IncludeAll, SplitOption.Exclude, false);
 
 		[Benchmark]
-		public static string[] IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries() => _testSplitExtension(Options.IncludeAll, Options.IncludeSingle, false);
+		public static string[] IncludeAllFollowing_IncludeSingleTrailing_OmitEmptyEntries() => _testSplitExtension(SplitOption.IncludeAll, SplitOption.IncludeSingle, false);
 
 		[Benchmark]
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing() => _testSplitExtension(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyFollowing);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyFollowing() => _testSplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Following);
 
 		[Benchmark]
-		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing() => _testSplitExtension(Options.IncludeSingle, Options.IncludeSingle, false, StringExtGreed.GreedyTrailing);
+		public static string[] IncludeSingleFollowing_IncludeSingleTrailing_OmitEmptyEntries_GreedyTrailing() => _testSplitExtension(SplitOption.IncludeSingle, SplitOption.IncludeSingle, false, SplitGreed.Trailing);
 	}
 }

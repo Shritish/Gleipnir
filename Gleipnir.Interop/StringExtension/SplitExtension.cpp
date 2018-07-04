@@ -1,11 +1,11 @@
-﻿//#pragma unmanaged
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <atlstr.h>
 #include "Gleipnir.Interop.h"
 
 using namespace System;
 using namespace System::Runtime::CompilerServices;
 
+#if false
 // So, internally this is sealed, this just unseals it to generate proper metadata.
 namespace System::Runtime::CompilerServices
 {
@@ -15,6 +15,7 @@ namespace System::Runtime::CompilerServices
 	[AttributeUsage(AttributeTargets::Method | AttributeTargets::Class | AttributeTargets::Assembly)]
 	ref struct ExtensionAttribute : public Attribute { };
 }
+#endif
 
 namespace Gleipnir
 {
@@ -23,7 +24,7 @@ namespace Gleipnir
 	/// <summary>
 	/// List of options for including or excluding trailing or following characters.
 	/// </summary>
-	public enum class Options
+	public enum class SplitOption
 	{
 		/// <summary>
 		/// Exclude trailing or following characters.
@@ -42,21 +43,21 @@ namespace Gleipnir
 	/// <summary>
 	/// Specifies whether to be greedy with following or trailing when calculating both following_option.IncludeSingle and trailing_option.IncludeSingle.
 	/// </summary>
-	public enum class StringExtGreed
+	public enum class SplitGreed
 	{
 		/// <summary>
 		/// Be greedy with following delimiters, example: "\example\string\" will result in "\example" and "\string\"
 		/// </summary>
-		GreedyFollowing,
+		Following,
 		/// <summary>
 		/// Be greedy with trailing delimiters, example: "\example\string\" will result in "\example\" and "string\"
 		/// </summary>
-		GreedyTrailing
+		Trailing
 	};
 
 	typedef array<array<String ^, 1> ^> JAGGED_STRING_ARRAY;
 	typedef array<String ^, 1>			STRING_ARRAY;
-	typedef array<const wchar_t, 1>		CHAR_ARRAY;
+	typedef array<Char, 1>				CHAR_ARRAY;
 
 #define MALLOC_METHOD	dictionary = (struct _wordEntry *)_malloca(sizeof(struct _wordEntry) * array_size);
 #define MEMSET_METHOD	memset(dictionary, 0 , sizeof(struct _wordEntry) * array_size);
@@ -68,7 +69,7 @@ namespace Gleipnir
 	public:
 		/// <summary>
 		/// string[*] will contain the tokenized string.
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="delimiters">Character list of delimiters.</param>
@@ -89,12 +90,12 @@ namespace Gleipnir
 		[Extension]
 		static inline STRING_ARRAY ^ SplitExtension(String ^ data, ... CHAR_ARRAY ^delimiters)
 		{
-			return SplitExtension(data, Options::Exclude, Options::Exclude, false, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtension(data, SplitOption::Exclude, SplitOption::Exclude, false, SplitGreed::Following, delimiters);
 		}
 		/// <summary>
 		/// string[*] will contain the tokenized string.
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
-		/// <para>This defaults to excluding all delimiters, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
+		/// <para>This defaults to excluding all delimiters, and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="keep_empty_entries">If set to <c>true</c> keep empty entries as string.Empty.</param>
@@ -116,12 +117,12 @@ namespace Gleipnir
 		[Extension]
 		static inline STRING_ARRAY ^ SplitExtension(String ^ data, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtension(data, Options::Exclude, Options::Exclude, keep_empty_entries, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtension(data, SplitOption::Exclude, SplitOption::Exclude, keep_empty_entries, SplitGreed::Following, delimiters);
 		}
 		/// <summary>
 		/// string[*] will contain the tokenized string.
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
-		/// <para>This defaults to not keeping empty entries and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
+		/// <para>This defaults to not keeping empty entries and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="following_option">Following Options::</param>
@@ -142,13 +143,13 @@ namespace Gleipnir
 		/// StringExtension::Invalid Option Type.
 		/// </exception>
 		[Extension]
-		static inline STRING_ARRAY ^ SplitExtension(String ^ data, Options following_options, Options trailing_options, ... CHAR_ARRAY ^ delimiters)
+		static inline STRING_ARRAY ^ SplitExtension(String ^ data, SplitOption following_options, SplitOption trailing_options, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtension(data, following_options, trailing_options, false, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtension(data, following_options, trailing_options, false, SplitGreed::Following, delimiters);
 		}
 		/// <summary>
 		/// string[*] will contain the tokenized string.
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
 		/// <para>This defaults to not specifying greed.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
@@ -171,14 +172,14 @@ namespace Gleipnir
 		/// StringExtension::Invalid Option Type.
 		/// </exception>
 		[Extension]
-		static inline STRING_ARRAY ^ SplitExtension(String ^ data, Options following_options, Options trailing_options, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
+		static inline STRING_ARRAY ^ SplitExtension(String ^ data, SplitOption following_options, SplitOption trailing_options, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtension(data, following_options, trailing_options, keep_empty_entries, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtension(data, following_options, trailing_options, keep_empty_entries, SplitGreed::Following, delimiters);
 		}
 
 		/// <summary>
 		/// string[*] will contain the tokenized string.
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="following_option">Following Options::</param>
@@ -203,10 +204,10 @@ namespace Gleipnir
 		[Extension]
 		static STRING_ARRAY ^ SplitExtension(
 			String ^ data,
-			Options following_option,
-			Options trailing_option,
+			SplitOption following_option,
+			SplitOption trailing_option,
 			const bool keep_empty_entries,
-			StringExtGreed greed,
+			SplitGreed greed,
 			... CHAR_ARRAY ^ delimiters)
 		{
 #if false
@@ -220,8 +221,6 @@ namespace Gleipnir
 			_wordEntry* __restrict dictionary;
 			_wordEntry* __restrict word;
 
-			//size_t compute_size;
-
 			STRING_ARRAY ^stringArray;
 			interior_ptr<String ^> string_ptr;
 
@@ -229,24 +228,24 @@ namespace Gleipnir
 			{
 				switch (following_option)
 				{
-				case Options::Exclude:
+				case SplitOption::Exclude:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_SINGLE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_ALL_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
@@ -256,34 +255,34 @@ namespace Gleipnir
 					default:
 						throw (gcnew NotSupportedException("StringExtension::Invalid Option Type."));
 					}
-				case Options::IncludeSingle:
+				case SplitOption::IncludeSingle:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 						{
-							if (greed == StringExtGreed::GreedyTrailing)
+							if (greed == SplitGreed::Trailing)
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING_GREEDY, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 							else
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING_GREEDY, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						}
 						else
 						{
-							if (greed == StringExtGreed::GreedyTrailing)
+							if (greed == SplitGreed::Trailing)
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_SINGLE_TRAILING_GREEDY, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 							else
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_SINGLE_TRAILING_GREEDY, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 						}
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_ALL_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_METHOD)
@@ -293,24 +292,24 @@ namespace Gleipnir
 					default:
 						throw (gcnew NotSupportedException("StringExtension::Invalid Option Type."));
 					}
-				case Options::IncludeAll:
+				case SplitOption::IncludeAll:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, INCLUDE_SINGLE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						throw (gcnew NotSupportedException("There is no functionable logic that supports IncludeAll following delimiters, and IncludeAll trailing delimiters."));
 					}
@@ -365,7 +364,7 @@ namespace Gleipnir
 		/// <summary>
 		/// string[*][0] will contain all characters up to the end of the token.
 		/// <para>string[*][1] contains just the tokenized string.</para>
-		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, not keeping empty entries, and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="delimiters">Character list of delimiters.</param>
@@ -386,13 +385,13 @@ namespace Gleipnir
 		[Extension]
 		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtensionTrack(data, Options::Exclude, Options::Exclude, false, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtensionTrack(data, SplitOption::Exclude, SplitOption::Exclude, false, SplitGreed::Following, delimiters);
 		}
 
 		/// <summary>
 		/// string[*][0] will contain all characters up to the end of the token.
 		/// <para>string[*][1] contains just the tokenized string.</para>
-		/// <para>This defaults to excluding all delimiters, and GreedyFollowing.</para>
+		/// <para>This defaults to excluding all delimiters, and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="keep_empty_entries">If set to <c>true</c> keep empty entries as string.Empty.</param>
@@ -414,12 +413,12 @@ namespace Gleipnir
 		[Extension]
 		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtensionTrack(data, Options::Exclude, Options::Exclude, keep_empty_entries, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtensionTrack(data, SplitOption::Exclude, SplitOption::Exclude, keep_empty_entries, SplitGreed::Following, delimiters);
 		}
 		/// <summary>
 		/// string[*][0] will contain all characters up to the end of the token.
 		/// <para>string[*][1] contains just the tokenized string.</para>
-		/// <para>This defaults to not keeping empty entries and GreedyFollowing.</para>
+		/// <para>This defaults to not keeping empty entries and Following.</para>
 		/// </summary>
 		/// <param name="data">The data to process.</param>
 		/// <param name="following_option">Following Options::</param>
@@ -440,9 +439,9 @@ namespace Gleipnir
 		/// StringExtension::Invalid Option Type.
 		/// </exception>
 		[Extension]
-		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, Options following_option, Options trailing_option, ... CHAR_ARRAY ^ delimiters)
+		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, SplitOption following_option, SplitOption trailing_option, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtensionTrack(data, following_option, trailing_option, false, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtensionTrack(data, following_option, trailing_option, false, SplitGreed::Following, delimiters);
 		}
 
 		/// <summary>
@@ -470,9 +469,9 @@ namespace Gleipnir
 		/// StringExtension::Invalid Option Type.
 		/// </exception>
 		[Extension]
-		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, Options following_option, Options trailing_option, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
+		static inline JAGGED_STRING_ARRAY^ SplitExtensionTrack(String ^ data, SplitOption following_option, SplitOption trailing_option, const bool keep_empty_entries, ... CHAR_ARRAY ^ delimiters)
 		{
-			return SplitExtensionTrack(data, following_option, trailing_option, keep_empty_entries, StringExtGreed::GreedyFollowing, delimiters);
+			return SplitExtensionTrack(data, following_option, trailing_option, keep_empty_entries, SplitGreed::Following, delimiters);
 		}
 
 		/// <summary>
@@ -502,10 +501,10 @@ namespace Gleipnir
 		[Extension]
 		static JAGGED_STRING_ARRAY^ SplitExtensionTrack(
 			String ^ data,
-			Options following_option,
-			Options trailing_option,
+			SplitOption following_option,
+			SplitOption trailing_option,
 			const bool keep_empty_entries,
-			StringExtGreed greed,
+			SplitGreed greed,
 			... CHAR_ARRAY ^ delimiters)
 		{
 #if false
@@ -534,24 +533,24 @@ namespace Gleipnir
 
 				switch (following_option)
 				{
-				case Options::Exclude:
+				case SplitOption::Exclude:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_SINGLE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(EXCLUDE_FOLLOWING, INCLUDE_ALL_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
@@ -561,34 +560,34 @@ namespace Gleipnir
 					default:
 						throw (gcnew NotSupportedException("StringExtension::Invalid Option Type."));
 					}
-				case Options::IncludeSingle:
+				case SplitOption::IncludeSingle:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 						{
-							if (greed == StringExtGreed::GreedyTrailing)
+							if (greed == SplitGreed::Trailing)
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING_GREEDY, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 							else
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING_GREEDY, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						}
 						else
 						{
-							if (greed == StringExtGreed::GreedyTrailing)
+							if (greed == SplitGreed::Trailing)
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_SINGLE_TRAILING_GREEDY, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 							else
 								SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_SINGLE_TRAILING_GREEDY, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 						}
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_SINGLE_FOLLOWING, INCLUDE_ALL_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
@@ -598,24 +597,24 @@ namespace Gleipnir
 					default:
 						throw (gcnew NotSupportedException("StringExtension::Invalid Option Type."));
 					}
-				case Options::IncludeAll:
+				case SplitOption::IncludeAll:
 					switch (trailing_option)
 					{
-					case Options::Exclude:
+					case SplitOption::Exclude:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, EXCLUDE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, EXCLUDE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeSingle:
+					case SplitOption::IncludeSingle:
 					{
 						if (keep_empty_entries)
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, INCLUDE_SINGLE_TRAILING, KEEP_EMPTY_ENTRIES, MEMSET_METHOD)
 						else
 							SPLIT_EXTENSION_CLR_FUNCTION(INCLUDE_ALL_FOLLOWING, INCLUDE_SINGLE_TRAILING, OMIT_EMPTY_ENTRIES, MEMSET_NULL)
 					}
-					case Options::IncludeAll:
+					case SplitOption::IncludeAll:
 					{
 						throw (gcnew NotSupportedException("There is no functionable logic that supports IncludeAll following delimiters, and IncludeAll trailing delimiters."));
 					}
@@ -707,17 +706,6 @@ namespace Gleipnir
 		// Latin1
 		static CHAR_ARRAY ^ whitespace = { (Char) ' ', (Char) '\x0009', (Char) '\x000d', (Char) '\x00a0', (Char) '\x0085' };
 
-#if false
-		inline __const_Char_ptr PtrToStringChars(__const_String_handle s) {
-
-			_Byte_ptr bp = const_cast<_Byte_ptr>(reinterpret_cast<__const_Byte_ptr>(s));
-			if (bp != _NULLPTR) {
-				unsigned offset = System::Runtime::CompilerServices::RuntimeHelpers::OffsetToStringData;
-				bp += offset;
-			}
-			return reinterpret_cast<__const_Char_ptr>(bp);
-		}
-#endif
 		// Bypass null check (it's handled)
 		static inline __const_Char_ptr _PointerToString(String ^s)
 		{

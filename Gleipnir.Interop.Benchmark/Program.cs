@@ -14,6 +14,9 @@ namespace Gleipnir.Interop.Benchmark
 			BenchmarkRunner.Run<SplitExtensionTrack_Keep>();
 			BenchmarkRunner.Run<SplitExtensionTrack_Omit>();
 
+            string blah = "test";
+
+            blah.SplitExtension(TestArray.SplitSeparators);
 			//BenchmarkRunner.Run<Program>();
 		}
 
@@ -23,7 +26,7 @@ namespace Gleipnir.Interop.Benchmark
 			string[] dont_optimize_me = null;
 
 			foreach (string test_string in TestArray.SplitStringArray)
-				dont_optimize_me = test_string.SplitExtension(Options.Exclude, Options.Exclude, false, TestArray.SplitSeparators);
+				dont_optimize_me = test_string.SplitExtension(SplitOption.Exclude, SplitOption.Exclude, false, TestArray.SplitSeparators);
 
 			return dont_optimize_me;
 		}
