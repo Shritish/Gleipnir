@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gleipnir.Interop.Tests", "G
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A80171BA-D3DF-4466-B69D-FB89EB60EE1D}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE.md = LICENSE.md
+		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
