@@ -14,9 +14,6 @@ namespace Gleipnir.Interop.Benchmark
 			BenchmarkRunner.Run<SplitExtensionTrack_Keep>();
 			BenchmarkRunner.Run<SplitExtensionTrack_Omit>();
 
-            string blah = "test";
-
-            blah.SplitExtension(TestArray.SplitSeparators);
 			//BenchmarkRunner.Run<Program>();
 		}
 
