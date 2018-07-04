@@ -62,4 +62,5 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-gleipnir.interop/* linguist-vendored
+* linguist-vendored
+*.cpp linguist-vendored=false
