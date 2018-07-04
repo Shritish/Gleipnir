@@ -56,7 +56,7 @@ string[][] SplitExtensionTrack(this string data, params char[] delimiters);
     string.SplitExtension('a', 'b', 'c', ...);
     ```
     
-    The Options are /somewhat/ self explanatory.
+    The Options are *somewhat* self explanatory.
     So for example, to emulate string.Split behavior:
     ```C#
       string TestString = @"test\string";
