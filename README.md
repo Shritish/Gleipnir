@@ -112,7 +112,7 @@ In this way, you can process things such as directory paths, etc, and get both t
     
 - **WHY?**
     *  It's faster.  How much faster?  System dependant.  Run the benchmarks, or use your own testing.
-    *  It only uses stack memory internally.  Nothing is put on the heal except what is output. (less memory usage)
+    *  It only uses stack memory internally.  Nothing is put on the heap except what is output. (less memory usage)
     *  There is no internal buffer, no extra (heap) memory (native or otherwise) is used, only stack.*
     *  You can extend or modify its functionality through the source code.
     *  It has options for how to handle the delimiters in the output.  
