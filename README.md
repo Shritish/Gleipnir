@@ -117,11 +117,12 @@ In this way, you can process things such as directory paths, etc, and get both t
     *  You can extend or modify its functionality through the source code.
     *  It has options for how to handle the delimiters in the output.  
     
-        *If the string is over 1MB in size, it will revert to using heap instead of stack memory (slower).  Basically, it'll try to use up the stack.  If there isn't enough stack space available, it'll revert to using heap. (_malloca)*
+        *If the string is over 1kB in size, it will revert to using heap instead of stack memory (slower).  Basically, it'll try to use up the stack.  If there isn't enough stack space available, it'll revert to using heap. (_malloca)*
 
 - **ISSUES:**
 1.  IntelliSense doesn't always update as aggressively as if it were a native C# project.  You need a successful build of the interop library for metadata to generate.  If it still doesn't generate (you don't need the metadata to compile), you can remove the project reference and add it back in, again.
 1.  The macros (used internally, only) are annoying but necessary for enforcing strict uniform conventions for 18 different C++ functions.
+1.  Maybe increase the default size for _malloca to a greater number?  Right now we're limited to 512 wide characters before it gets pushed to heap.  We could double this without impact. Change _ALLOCA_S_THRESHOLD in SplitExtension.cpp to achieve this.
 
 - **CONTRIBUTING:**  
 Please do.  Including micro-optimizations. I don't mind the library growing in scope.  

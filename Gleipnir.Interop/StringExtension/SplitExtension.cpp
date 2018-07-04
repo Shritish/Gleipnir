@@ -17,6 +17,9 @@ namespace System::Runtime::CompilerServices
 }
 #endif
 
+#undef _ALLOCA_S_THRESHOLD
+#define _ALLOCA_S_THRESHOLD 1024 //Define the amount of bytes you want _malloca to handle on the stack.  Anything greater will be pushed to heap.
+
 namespace Gleipnir
 {
 	[assembly:System::CLSCompliant(true)];
@@ -217,15 +220,11 @@ namespace Gleipnir
 			pin_ptr<const wchar_t> calculation = _PointerToString(data);
 			pin_ptr<const wchar_t> delimiter_begin = &delimiters[0];
 
-			split_extension_int array_size;
-			_wordEntry* __restrict dictionary;
-			_wordEntry* __restrict word;
-
-			STRING_ARRAY ^stringArray;
-			interior_ptr<String ^> string_ptr;
-
 			__try
 			{
+				split_extension_int array_size;
+				_wordEntry* __restrict dictionary;
+
 				switch (following_option)
 				{
 				case SplitOption::Exclude:
@@ -321,6 +320,10 @@ namespace Gleipnir
 				}
 
 			MemAlloc:
+				_wordEntry* __restrict word;
+
+				STRING_ARRAY ^stringArray;
+				interior_ptr<String ^> string_ptr;
 
 				if (array_size == 0)
 					return gcnew STRING_ARRAY(0);
@@ -332,7 +335,6 @@ namespace Gleipnir
 
 				for (int i = stringArray->Length; i != 0; i--)
 				{
-					//if (word->_length)
 					*string_ptr = gcnew String(word->_wordBegin, 0, word->_length);
 					++string_ptr;
 					++word;
@@ -523,13 +525,7 @@ namespace Gleipnir
 			__try
 			{
 				_wordEntry* __restrict dictionary;
-				_wordEntry* __restrict word;
-
-				JAGGED_STRING_ARRAY ^stringArray;
-				interior_ptr<STRING_ARRAY ^> array_ptr;
-
 				split_extension_int array_size;
-				int track_length = 0;
 
 				switch (following_option)
 				{
@@ -626,6 +622,12 @@ namespace Gleipnir
 				}
 
 			MemAlloc:
+				_wordEntry * __restrict word;
+
+				JAGGED_STRING_ARRAY ^stringArray;
+				interior_ptr<STRING_ARRAY ^> array_ptr;
+
+				int track_length = 0;
 
 				if (array_size == 0)
 					return gcnew JAGGED_STRING_ARRAY(0);
